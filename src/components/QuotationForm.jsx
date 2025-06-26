@@ -1,31 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   TextField,
   Grid,
   Typography,
   Box,
-} from '@mui/material';
+} from "@mui/material";
 
-const QuotationForm = () => {
-  const [formData, setFormData] = useState({
-    clientName: '',
-    clientEmail: '',
-    clientPhone: '',
-    date: '',
-    quotationNumber: '',
-    notes: '',
-    terms: '',
-  });
-
+const QuotationForm = ({ formData, setFormData }) => {
   useEffect(() => {
-    const today = new Date().toLocaleDateString('en-GB');
+    const today = new Date().toLocaleDateString("en-GB");
     const randomId = `#Q-${Math.floor(100 + Math.random() * 900)}`;
     setFormData((prev) => ({
       ...prev,
       date: today,
       quotationNumber: randomId,
+      preparedBy: "Your Company Name",
     }));
-  }, []);
+  }, [setFormData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,7 +24,9 @@ const QuotationForm = () => {
   };
 
   return (
-    <Box component="form" sx={{ mt: 2 }}>
+    <Box sx={{ mt: 2 }}>
+      
+
       <Grid container spacing={2}>
         <Grid item xs={12} sm={4}>
           <TextField
@@ -42,6 +35,8 @@ const QuotationForm = () => {
             value={formData.clientName}
             onChange={handleChange}
             fullWidth
+            size="small"
+            sx={{ backgroundColor: "white", borderRadius: 1 }}
           />
         </Grid>
 
@@ -53,6 +48,8 @@ const QuotationForm = () => {
             value={formData.clientEmail}
             onChange={handleChange}
             fullWidth
+            size="small"
+            sx={{ backgroundColor: "white", borderRadius: 1 }}
           />
         </Grid>
 
@@ -64,6 +61,8 @@ const QuotationForm = () => {
             value={formData.clientPhone}
             onChange={handleChange}
             fullWidth
+            size="small"
+            sx={{ backgroundColor: "white", borderRadius: 1 }}
           />
         </Grid>
 
@@ -74,6 +73,8 @@ const QuotationForm = () => {
             value={formData.date}
             disabled
             fullWidth
+            size="small"
+            sx={{ backgroundColor: "#f1f1f1", borderRadius: 1 }}
           />
         </Grid>
 
@@ -84,6 +85,8 @@ const QuotationForm = () => {
             value={formData.quotationNumber}
             disabled
             fullWidth
+            size="small"
+            sx={{ backgroundColor: "#f1f1f1", borderRadius: 1 }}
           />
         </Grid>
 
@@ -96,6 +99,8 @@ const QuotationForm = () => {
             fullWidth
             multiline
             rows={3}
+            size="small"
+            sx={{ backgroundColor: "white", borderRadius: 1 }}
           />
         </Grid>
 
@@ -108,12 +113,19 @@ const QuotationForm = () => {
             fullWidth
             multiline
             rows={3}
+            size="small"
+            sx={{ backgroundColor: "white", borderRadius: 1 }}
           />
         </Grid>
+
+        
       </Grid>
     </Box>
   );
 };
 
 export default QuotationForm;
+
+
+
 
