@@ -7,7 +7,6 @@ import {
   Box,
   ThemeProvider,
   createTheme,
-  Divider,
 } from "@mui/material";
 import QuotationForm from "./components/QuotationForm";
 import ItemTable from "./components/ItemTable";
@@ -46,6 +45,20 @@ function App() {
     quotationNumber: "",
     notes: "",
     terms: "",
+    logo: "",
+    companyName: "",
+    address: "",
+    city: "",
+    email: "",
+    dueDate: "",
+    toCompany: "",
+    toAddress: "",
+    toCity: "",
+    toCountry: "",
+    shipCompany: "",
+    shipAddress: "",
+    shipCity: "",
+    shipCountry: "",
   });
 
   const [items, setItems] = useState([
@@ -53,6 +66,21 @@ function App() {
   ]);
 
   const [total, setTotal] = useState(0);
+
+  // ✅ Define logo upload inside the component so setFormData is accessible
+  const handleLogoUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData((prev) => ({
+          ...prev,
+          logo: reader.result,
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   useEffect(() => {
     const today = new Date().toLocaleDateString("en-GB");
@@ -68,10 +96,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Container maxWidth="md" sx={{ py: 4 }}>
-        <Paper
-          elevation={3}
-          sx={{ p: 4, borderRadius: 4, bgcolor: "#ffffff" }}
-        >
+        <Paper elevation={3} sx={{ p: 4, borderRadius: 4, bgcolor: "#ffffff" }}>
           <Box sx={{ textAlign: "center", mb: 4 }}>
             <Typography variant="h3" sx={{ fontWeight: 700, color: "#111827" }}>
               Quotation Maker
@@ -82,7 +107,11 @@ function App() {
           </Box>
 
           <Section title="Client Information">
-            <QuotationForm formData={formData} setFormData={setFormData} />
+            <QuotationForm
+              formData={formData}
+              setFormData={setFormData}
+              handleLogoUpload={handleLogoUpload}
+            />
           </Section>
 
           <Section title="Quotation Items">
